@@ -1,0 +1,44 @@
+version: '3.3'
+
+services:
+  mariadb:
+    image: mariadb:${MARIADB_IMAGE_TAG:-10.4}
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-dummy}
+      MYSQL_USER: ghost
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-ghost1234}
+      MYSQL_DATABASE: ghost_production
+    restart: always
+    volumes:
+      - type: bind
+        source: ${MYSQL_HOST_PATH:-~/mariadb_data}
+        target: /var/lib/mysql
+
+  ghost:
+    image: ghost:${GHOST_IMAGE_TAG:-3.2.0-alpine}
+    environment:
+      url: ${BLOG_URL:-http://127.0.0.1}
+      database__client: mysql
+      database__connection__host: mariadb
+      database__connection__database: ghost_production
+      database__connection__user: ghost
+      database__connection__password: ${MYSQL_PASSWORD:-ghost1234}
+    depends_on:
+      - mariadb
+    restart: always
+    volumes:
+      - type: bind
+        source: ${GHOST_HOST_PATH:-~/ghost}
+        target: /var/lib/ghost/content
+
+  nginx:
+    image: nginx
+    restart: always
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - type: bind
+        source: ${NGINX_HOST_PATH:-~/nginx}
+        target: /etc/nginx/conf.d/
+
