@@ -26,6 +26,8 @@ echo "MySQL root password: $MYSQL_ROOT_PASSWORD"
 echo "Ghost host data folder: $GHOST_HOST_PATH"
 echo "MySQL host data folder: $MYSQL_HOST_PATH"
 echo "Nginx host config folder: $NGINX_HOST_PATH"
+echo "HTTP port: $NGINX_HTTP_PORT"
+echo "HTTPS port: $NGINX_HTTPS_PORT"
 
 read -p "Confirm the deployment? (Y/N): " -n 1 -r
 echo

@@ -35,8 +35,8 @@ services:
     image: nginx
     restart: always
     ports:
-      - '80:80'
-      - '443:443'
+      - "${NGINX_HTTP_PORT:-80}:80"
+      - "${NGINX_HTTPS_PORT:-443}:443"
     volumes:
       - type: bind
         source: ${NGINX_HOST_PATH:-~/nginx}
