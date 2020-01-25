@@ -23,6 +23,13 @@ services:
       database__connection__database: ghost_production
       database__connection__user: ghost
       database__connection__password: ${MYSQL_PASSWORD:-ghost1234}
+      mail__transport: ${MAIL_TRANSPORT:-Direct}
+      mail__options__service: ${MAIL_SERVICE}
+      mail__options__host: ${MAIL_HOST}
+      mail__options__port: ${MAIL_PORT:-25}
+      mail__options__secureConnection: ${MAIL_SECURE:-false}
+      mail__options__auth__user: ${MAIL_USER}
+      mail__options__auth__pass: ${MAIL_PASSWORD}
     depends_on:
       - mariadb
     restart: always
