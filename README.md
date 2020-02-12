@@ -18,3 +18,7 @@ cd docker-ghost
 ```
 ./deploy.sh $ENV_FILE_PATH
 ```
+
+5. This is just a comment
+
+6. This is another line
